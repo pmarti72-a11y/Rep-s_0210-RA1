@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Repàs prova 13 d'octubre</title>
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@500;700;800&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+  /* Layout: una columna de lectura, capçalera + índex enganxós, una targeta per tema amb capçalera de color (mateixa família visual que els qüestionaris de repàs) */
+  :root{
+    --ground:#F6F3FA; --surface:#FFFFFF; --sunk:#F0ECF7;
+    --ink:#312C4A; --ink-soft:#6E688C; --line:#E3DDF0; --accent:#7C63C8;
+    --mint:#D6F0E4; --mint-ink:#2E6B54;
+    --sky:#D8E8FA;  --sky-ink:#2F5A85;
+    --peach:#FBE2D2; --peach-ink:#8A5232;
+    --lilac:#E6DDFA; --lilac-ink:#584191;
+    --warn-bg:#FFF4D6; --warn-line:#EBC873; --warn-ink:#7A5712;
+    --badge-bg:rgba(255,255,255,.65); --on-accent:#FFFFFF;
+    --display:"Gabarito","Trebuchet MS",system-ui,sans-serif;
+    --body:"Karla","Helvetica Neue",Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#191628; --surface:#221E35; --sunk:#1E1A2E;
+      --ink:#EDE9F8; --ink-soft:#A79FC4; --line:#332C4C; --accent:#B8A3F5;
+      --mint:#20402F; --mint-ink:#9EDCBD;
+      --sky:#1F3448;  --sky-ink:#A5CBEC;
+      --peach:#432C1E; --peach-ink:#EFBE9A;
+      --lilac:#2E2650; --lilac-ink:#C5B2F7;
+      --warn-bg:#3D3016; --warn-line:#8A6D2C; --warn-ink:#F2D68F;
+      --badge-bg:rgba(0,0,0,.25); --on-accent:#1B1729;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#191628; --surface:#221E35; --sunk:#1E1A2E;
+    --ink:#EDE9F8; --ink-soft:#A79FC4; --line:#332C4C; --accent:#B8A3F5;
+    --mint:#20402F; --mint-ink:#9EDCBD;
+    --sky:#1F3448;  --sky-ink:#A5CBEC;
+    --peach:#432C1E; --peach-ink:#EFBE9A;
+    --lilac:#2E2650; --lilac-ink:#C5B2F7;
+    --warn-bg:#3D3016; --warn-line:#8A6D2C; --warn-ink:#F2D68F;
+    --badge-bg:rgba(0,0,0,.25); --on-accent:#1B1729;
+    color-scheme:dark;
+  }
+
+  body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:900px;margin:0 auto;padding-inline:clamp(16px,4vw,32px);padding-block:clamp(22px,4vh,44px) clamp(40px,7vh,72px);display:flex;flex-direction:column;gap:clamp(20px,3vh,30px);}
+
+  /* capçalera */
+  .hero{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(20px,3vw,34px);display:flex;flex-direction:column;gap:.75em;position:relative;overflow:hidden;}
+  .hero::after{content:"";position:absolute;right:-70px;top:-90px;width:230px;height:230px;border-radius:50%;background:var(--lilac);opacity:.55;}
+  .hero>*{position:relative;z-index:1;}
+  .kicker{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,4.6vw,2.6rem);line-height:1.08;letter-spacing:-.02em;margin:0;text-wrap:balance;}
+  .lead{margin:0;max-width:62ch;color:var(--ink-soft);}
+  .exam{display:flex;flex-wrap:wrap;gap:.6em;align-items:center;margin-top:.3em;}
+  .date{font-family:var(--display);font-weight:700;background:var(--accent);color:var(--on-accent);padding:.45em 1em;border-radius:999px;font-size:.92rem;}
+  .count{font-weight:700;font-size:.9rem;color:var(--lilac-ink);background:var(--lilac);padding:.45em 1em;border-radius:999px;}
+
+  /* índex */
+  .toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:.55em;display:flex;gap:.45em;flex-wrap:wrap;box-shadow:0 6px 18px rgba(49,44,74,.06);}
+  .toc a{flex:1 1 9em;text-decoration:none;font-weight:700;font-size:.84rem;padding:.5em .8em;border-radius:10px;display:flex;gap:.5em;align-items:center;}
+  .toc a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .toc a b{font-family:var(--display);font-weight:800;}
+  .toc .a{background:var(--mint);color:var(--mint-ink);}
+  .toc .b{background:var(--sky);color:var(--sky-ink);}
+  .toc .c{background:var(--peach);color:var(--peach-ink);}
+  .toc .d{background:var(--lilac);color:var(--lilac-ink);}
+  .toc .e{background:var(--sunk);color:var(--ink);}
+
+  /* temes */
+  section{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;scroll-margin-top:5.5em;}
+  .sec-head{display:flex;align-items:center;gap:.8em;padding:clamp(14px,2vw,20px) clamp(16px,2.4vw,26px);flex-wrap:wrap;}
+  .sec-head h2{font-family:var(--display);font-weight:700;font-size:clamp(1.1rem,2.4vw,1.4rem);margin:0;letter-spacing:-.01em;line-height:1.2;text-wrap:balance;flex:1 1 14em;min-width:0;}
+  .badge{width:2.3em;height:2.3em;flex:none;display:grid;place-items:center;border-radius:11px;font-family:var(--display);font-weight:800;font-size:1rem;background:var(--badge-bg);}
+  section[data-tone="a"] .sec-head{background:var(--mint);color:var(--mint-ink);}
+  section[data-tone="b"] .sec-head{background:var(--sky);color:var(--sky-ink);}
+  section[data-tone="c"] .sec-head{background:var(--peach);color:var(--peach-ink);}
+  section[data-tone="d"] .sec-head{background:var(--lilac);color:var(--lilac-ink);}
+  section[data-tone="e"] .sec-head{background:var(--sunk);color:var(--ink);}
+  .sec-head h2{color:var(--ink);}
+
+  .body{padding:clamp(8px,1.6vw,16px) clamp(16px,2.6vw,28px) clamp(18px,2.6vw,28px);display:flex;flex-direction:column;}
+  .sub{padding-block:clamp(14px,2vh,20px);border-bottom:1px dashed var(--line);display:flex;flex-direction:column;gap:.7em;min-width:0;}
+  .sub:last-child{border-bottom:0;}
+  h3{font-family:var(--display);font-weight:700;font-size:1.08rem;margin:0;display:flex;gap:.55em;align-items:baseline;text-wrap:balance;}
+  h3 .n{color:var(--accent);font-variant-numeric:tabular-nums;font-weight:800;}
+  h4{font-family:var(--display);font-weight:700;font-size:.98rem;margin:.3em 0 0;color:var(--ink-soft);}
+  p{margin:0;max-width:68ch;}
+  ul{margin:0;padding-left:1.25em;display:flex;flex-direction:column;gap:.3em;max-width:68ch;}
+  strong{font-weight:700;}
+  .term{background:var(--lilac);color:var(--lilac-ink);padding:.05em .4em;border-radius:6px;font-weight:700;}
+
+  /* taules */
+  .tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;}
+  table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:520px;}
+  th,td{text-align:left;vertical-align:top;padding:.6em .8em;border-bottom:1px solid var(--line);}
+  tr:last-child td{border-bottom:0;}
+  th{background:var(--sunk);font-family:var(--display);font-weight:700;font-size:.84rem;letter-spacing:.02em;}
+  td:first-child{font-weight:700;}
+  .num{font-variant-numeric:tabular-nums;white-space:nowrap;}
+
+  /* caixes */
+  .box{border-radius:12px;padding:.8em 1em;display:flex;flex-direction:column;gap:.3em;font-size:.95rem;max-width:72ch;}
+  .box .lbl{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
+  .key{background:var(--sunk);border:1.5px solid var(--accent);}
+  .key .lbl{color:var(--accent);}
+  .warn{background:var(--warn-bg);border:1.5px solid var(--warn-line);color:var(--warn-ink);}
+  .warn p{color:var(--warn-ink);}
+
+  /* graus */
+  .grades{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7em;}
+  .grade{border-radius:14px;padding:.9em 1em;display:flex;flex-direction:column;gap:.35em;min-width:0;}
+  .grade .g{font-family:var(--display);font-weight:800;font-size:1.25rem;line-height:1.1;}
+  .grade .pts{font-family:var(--display);font-weight:700;font-variant-numeric:tabular-nums;font-size:.9rem;}
+  .grade p{font-size:.88rem;}
+  .grade.g1{background:var(--mint);color:var(--mint-ink);}
+  .grade.g2{background:var(--peach);color:var(--peach-ink);}
+  .grade.g3{background:var(--lilac);color:var(--lilac-ink);}
+
+  /* passos */
+  .steps{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.6em;counter-reset:s;max-width:none;}
+  .steps li{counter-increment:s;display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:.7em;align-items:start;}
+  .steps li::before{content:counter(s);font-family:var(--display);font-weight:800;width:2em;height:2em;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--on-accent);}
+
+  /* cadena */
+  .chain{display:flex;flex-wrap:wrap;gap:.4em;align-items:center;font-family:var(--display);font-weight:700;}
+  .chain span{background:var(--sunk);border:1px solid var(--line);padding:.35em .8em;border-radius:999px;}
+  .chain i{font-style:normal;color:var(--accent);}
+
+  /* dues columnes */
+  .duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8em;}
+  .card{background:var(--sunk);border-radius:14px;padding:.9em 1em;display:flex;flex-direction:column;gap:.45em;min-width:0;}
+  .card h4{margin:0;color:var(--ink);}
+  .card p,.card li{font-size:.92rem;}
+
+  /* glossari */
+  .gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.5em;}
+  .gloss div{background:var(--sunk);border-radius:10px;padding:.55em .8em;font-size:.9rem;min-width:0;}
+  .gloss b{font-family:var(--display);color:var(--accent);margin-right:.35em;}
+
+  /* checklist */
+  .check{list-style:none;padding:0;display:flex;flex-direction:column;gap:.45em;max-width:none;}
+  .check label{display:flex;gap:.7em;align-items:flex-start;cursor:pointer;padding:.5em .7em;border-radius:10px;background:var(--sunk);}
+  .check input{margin-top:.3em;accent-color:var(--accent);width:1.1em;height:1.1em;flex:none;}
+  .check input:checked + span{text-decoration:line-through;color:var(--ink-soft);}
+  .progress{font-family:var(--display);font-weight:700;color:var(--accent);}
+
+  .foot{text-align:center;color:var(--ink-soft);font-size:.88rem;}
+  a{color:var(--accent);}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+  @media (prefers-reduced-motion: no-preference){ html{scroll-behavior:smooth;} }
+
+  [hidden]{display:none !important;}
+  /* pestanyes */
+  .tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:.45em;display:flex;gap:.35em;overflow-x:auto;box-shadow:0 6px 18px rgba(49,44,74,.08);scrollbar-width:thin;}
+  .tab{flex:1 0 auto;font:inherit;font-weight:700;font-size:.86rem;border:0;border-radius:11px;padding:.6em .95em;cursor:pointer;background:transparent;color:var(--ink-soft);display:flex;gap:.5em;align-items:center;justify-content:center;white-space:nowrap;transition:background .15s ease,color .15s ease;}
+  .tab:hover{background:var(--sunk);color:var(--ink);}
+  .tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+  .tab .dot{width:.75em;height:.75em;border-radius:50%;flex:none;}
+  .tab[aria-selected="true"]{background:var(--accent);color:var(--on-accent);}
+  .dot.a{background:var(--mint-ink);} .dot.b{background:var(--sky-ink);} .dot.c{background:var(--peach-ink);} .dot.d{background:var(--lilac-ink);} .dot.e{background:var(--ink-soft);} .dot.h{background:var(--accent);}
+  .tab[aria-selected="true"] .dot{background:var(--on-accent);}
+
+  /* portada */
+  .home{display:flex;flex-direction:column;gap:1.1em;}
+  .home-intro{display:flex;justify-content:space-between;align-items:baseline;gap:.6em;flex-wrap:wrap;}
+  .home-intro h2{font-family:var(--display);font-weight:800;font-size:1.35rem;margin:0;}
+  .home-intro p{color:var(--ink-soft);font-size:.92rem;}
+  .topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:1em;}
+  .topic{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:transform .2s ease,box-shadow .2s ease;min-width:0;}
+  .topic:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(49,44,74,.13);}
+  .topic:focus-visible{outline:3px solid var(--accent);outline-offset:3px;}
+  .topic .art{height:150px;display:grid;place-items:center;position:relative;}
+  .topic .art svg{height:122px;width:auto;max-width:90%;}
+  .topic .art .big{position:absolute;left:.55em;top:.1em;font-family:var(--display);font-weight:800;font-size:3.4rem;line-height:1;opacity:.28;}
+  .topic.a .art{background:var(--mint);color:var(--mint-ink);}
+  .topic.b .art{background:var(--sky);color:var(--sky-ink);}
+  .topic.c .art{background:var(--peach);color:var(--peach-ink);}
+  .topic.d .art{background:var(--lilac);color:var(--lilac-ink);}
+  .topic .tx{padding:1em 1.2em 1.2em;display:flex;flex-direction:column;gap:.6em;flex:1;}
+  .topic .lab{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-soft);}
+  .topic h3{font-size:1.2rem;line-height:1.22;display:block;}
+  .tags{display:flex;flex-wrap:wrap;gap:.35em;}
+  .tags span{font-size:.76rem;font-weight:600;background:var(--sunk);color:var(--ink);padding:.28em .7em;border-radius:999px;}
+  .go{margin-top:auto;padding-top:.3em;font-weight:700;color:var(--accent);font-size:.92rem;}
+  .tips{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:.7em;}
+  .tip{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:.8em 1em;display:flex;gap:.7em;align-items:flex-start;font-size:.9rem;min-width:0;}
+  .tip .i{flex:none;width:2em;height:2em;border-radius:9px;display:grid;place-items:center;font-family:var(--display);font-weight:800;background:var(--lilac);color:var(--lilac-ink);}
+
+  /* esquemes */
+  .fig{background:var(--sunk);border-radius:14px;padding:.9em;overflow-x:auto;display:flex;flex-direction:column;gap:.4em;}
+  .fig svg{display:block;width:100%;min-width:480px;height:auto;}
+  .fig figcaption{font-size:.8rem;color:var(--ink-soft);text-align:center;}
+  figure{margin:0;}
+  .svt{font-family:var(--display);font-weight:700;}
+
+  /* paginació */
+  .pager{display:flex;justify-content:space-between;gap:.6em;flex-wrap:wrap;padding-top:1em;}
+  .pbtn{font:inherit;font-weight:700;font-size:.88rem;border-radius:999px;padding:.6em 1.2em;cursor:pointer;border:1.5px solid var(--accent);background:transparent;color:var(--accent);}
+  .pbtn.next{background:var(--accent);color:var(--on-accent);margin-left:auto;}
+  .pbtn:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+  @keyframes rise{from{transform:translateY(8px);opacity:.4}to{transform:none;opacity:1}}
+  @media (prefers-reduced-motion: no-preference){ .panel:not([hidden]){animation:rise .3s ease;} }
+</style>
+
+
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="kicker">CFGM TAPSD · MP 0210 · RA1</span>
+    <h1>Repàs per la prova escrita del 13 d'octubre · RA1 temes 1, 2, 3 i 4</h1>
+    <p class="lead">Tot el que entra a la prova, resumit a partir del dossier teòric. Tria un tema a la portada o a les pestanyes. Fixa't sobretot en les caixes <strong>Idea clau</strong> i <strong>Compte!</strong>: són els punts que més es pregunten i on més es falla.</p>
+    <div class="exam">
+      <span class="date">Dimarts 13 d'octubre</span>
+      <span class="count" id="count">Prova escrita · Temes 1–4</span>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Temes">
+    <button class="tab" role="tab" id="tab-inici" data-go="inici" aria-selected="true"><span class="dot h"></span>Inici</button>
+    <button class="tab" role="tab" id="tab-t1" data-go="t1" aria-selected="false"><span class="dot a"></span>Tema 1</button>
+    <button class="tab" role="tab" id="tab-t2" data-go="t2" aria-selected="false"><span class="dot b"></span>Tema 2</button>
+    <button class="tab" role="tab" id="tab-t3" data-go="t3" aria-selected="false"><span class="dot c"></span>Tema 3</button>
+    <button class="tab" role="tab" id="tab-t4" data-go="t4" aria-selected="false"><span class="dot d"></span>Tema 4</button>
+    <button class="tab" role="tab" id="tab-extra" data-go="extra" aria-selected="false"><span class="dot e"></span>Sigles i check</button>
+  </nav>
+
+  <div class="panel home" id="inici" role="tabpanel" aria-labelledby="tab-inici">
+    <div class="home-intro"><h2>Tria un tema per començar</h2><p>Clica una targeta o una pestanya de dalt.</p></div>
+    <div class="topics">
+      <a class="topic a" href="#t1" data-go="t1"><div class="art"><span class="big">1</span><svg viewBox="0 0 200 120" aria-hidden="true"><path d="M18 40 L100 8 L182 40 Z" fill="currentColor"/><rect x="22" y="42" width="156" height="9" rx="2" fill="currentColor" opacity=".8"/><rect x="36" y="55" width="18" height="44" rx="3" fill="currentColor" opacity=".45"/><rect x="72" y="55" width="18" height="44" rx="3" fill="currentColor" opacity=".45"/><rect x="108" y="55" width="18" height="44" rx="3" fill="currentColor" opacity=".45"/><rect x="144" y="55" width="18" height="44" rx="3" fill="currentColor"/><rect x="14" y="101" width="172" height="11" rx="3" fill="currentColor"/></svg></div><div class="tx"><span class="lab">Tema 1</span><h3>L'estat del benestar i el marc legal</h3><div class="tags"><span>4 pilars</span><span>Llei 39/2006</span><span>Llei 12/2007</span><span>Protecció de dades</span></div><span class="go">Obre el tema →</span></div></a>
+      <a class="topic b" href="#t2" data-go="t2"><div class="art"><span class="big">2</span><svg viewBox="0 0 200 120" aria-hidden="true"><path d="M22 106 A78 78 0 0 1 61 38.5" fill="none" stroke="currentColor" stroke-width="20" opacity=".35"/><path d="M63 37.5 A78 78 0 0 1 137 37.5" fill="none" stroke="currentColor" stroke-width="20" opacity=".65"/><path d="M139 38.5 A78 78 0 0 1 178 106" fill="none" stroke="currentColor" stroke-width="20"/><line x1="100" y1="106" x2="138" y2="66" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><circle cx="100" cy="106" r="9" fill="currentColor"/><text x="14" y="62" class="svt" font-size="13" fill="currentColor">I</text><text x="95" y="13" class="svt" font-size="13" fill="currentColor">II</text><text x="177" y="62" class="svt" font-size="13" fill="currentColor">III</text></svg></div><div class="tx"><span class="lab">Tema 2</span><h3>La dependència: concepte, models i graus</h3><div class="tags"><span>Models</span><span>Graus I, II, III</span><span>SEVAD</span><span>PIA i PAI</span></div><span class="go">Obre el tema →</span></div></a>
+      <a class="topic c" href="#t3" data-go="t3"><div class="art"><span class="big">3</span><svg viewBox="0 0 200 120" aria-hidden="true"><g stroke="currentColor" stroke-width="3" opacity=".5"><line x1="100" y1="60" x2="34" y2="22"/><line x1="100" y1="60" x2="166" y2="22"/><line x1="100" y1="60" x2="34" y2="98"/><line x1="100" y1="60" x2="166" y2="98"/><line x1="100" y1="60" x2="100" y2="12"/></g><circle cx="100" cy="60" r="22" fill="currentColor"/><rect x="93" y="50" width="14" height="20" rx="2" fill="none" stroke="var(--surface)" stroke-width="3"/><circle cx="34" cy="22" r="12" fill="currentColor" opacity=".7"/><circle cx="166" cy="22" r="12" fill="currentColor" opacity=".7"/><circle cx="34" cy="98" r="12" fill="currentColor" opacity=".7"/><circle cx="166" cy="98" r="12" fill="currentColor" opacity=".7"/><circle cx="100" cy="10" r="8" fill="currentColor" opacity=".45"/></svg></div><div class="tx"><span class="lab">Tema 3</span><h3>La xarxa de serveis socials</h3><div class="tags"><span>Generals i especialitzats</span><span>Administracions</span><span>Prestacions</span></div><span class="go">Obre el tema →</span></div></a>
+      <a class="topic d" href="#t4" data-go="t4"><div class="art"><span class="big">4</span><svg viewBox="0 0 200 120" aria-hidden="true"><path d="M10 62 L38 38 L66 62 Z" fill="currentColor" opacity=".55"/><rect x="16" y="62" width="44" height="40" fill="currentColor" opacity=".55"/><rect x="32" y="80" width="12" height="22" fill="var(--surface)"/><circle cx="100" cy="46" r="11" fill="currentColor" opacity=".8"/><rect x="80" y="64" width="40" height="38" rx="2" fill="currentColor" opacity=".8"/><rect x="94" y="82" width="12" height="20" fill="var(--surface)"/><rect x="138" y="24" width="50" height="78" rx="2" fill="currentColor"/><g fill="var(--surface)"><rect x="146" y="32" width="10" height="10"/><rect x="170" y="32" width="10" height="10"/><rect x="146" y="50" width="10" height="10"/><rect x="170" y="50" width="10" height="10"/><rect x="146" y="68" width="10" height="10"/><rect x="170" y="68" width="10" height="10"/><rect x="157" y="86" width="12" height="16"/></g><rect x="4" y="102" width="192" height="6" rx="3" fill="currentColor"/></svg></div><div class="tx"><span class="lab">Tema 4</span><h3>Equipaments segons el grau de dependència</h3><div class="tags"><span>SAD</span><span>Centres de dia i nit</span><span>Residències</span><span>Habitatges</span></div><span class="go">Obre el tema →</span></div></a>
+    </div>
+    <div class="tips">
+      <div class="tip"><span class="i">1</span><span>Llegeix cada tema sencer i para atenció a les caixes <strong>Idea clau</strong>.</span></div>
+      <div class="tip"><span class="i">2</span><span>Les caixes <strong>Compte!</strong> marquen els errors més habituals a la prova.</span></div>
+      <div class="tip"><span class="i">3</span><span>Acaba a <strong>Sigles i check</strong> i marca el que ja saps explicar.</span></div>
+    </div>
+  </div>
+
+  <!-- ===================== TEMA 1 ===================== -->
+  <section class="panel" role="tabpanel" aria-labelledby="tab-t1" hidden id="t1" data-tone="a">
+    <div class="sec-head"><span class="badge">1</span><h2>L'estat del benestar i el marc legal de l'atenció a la dependència</h2></div>
+    <div class="body">
+
+      <div class="sub">
+        <h3><span class="n">1.1</span>Què és l'estat del benestar</h3>
+        <p>Model d'organització política i econòmica en què l'Estat <strong>garanteix serveis i drets socials a tota la població</strong>. La seva essència és la <span class="term">redistribució de la renda</span>: amb els impostos (IRPF, IVA, IBI…) es financen infraestructures, equipaments i serveis bàsics.</p>
+        <ul>
+          <li>La <strong>Seguretat Social</strong> recull les aportacions d'empreses i persones treballadores per cobrir qui és fora del treball productiu (persones jubilades, aturades…).</li>
+          <li>A Espanya va arribar <strong>més tard</strong> que a la resta d'Europa: es configura amb la democràcia i la <strong>Constitució de 1978</strong>. Per això el seu abast ha estat més limitat, tot i els avenços.</li>
+        </ul>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">1.2</span>Els quatre pilars</h3>
+        <figure class="fig"><svg viewBox="0 0 520 290" role="img" aria-label="Temple amb els quatre pilars de l'estat del benestar">
+<path d="M40 74 L260 16 L480 74 Z" style="fill:var(--mint-ink)"/>
+<text x="260" y="62" text-anchor="middle" class="svt" font-size="17" style="fill:var(--surface)">ESTAT DEL BENESTAR</text>
+<rect x="50" y="78" width="420" height="14" rx="3" style="fill:var(--mint-ink)" opacity=".8"/>
+<g style="fill:var(--mint)"><rect x="88" y="98" width="54" height="116" rx="4"/><rect x="188" y="98" width="54" height="116" rx="4"/><rect x="288" y="98" width="54" height="116" rx="4"/></g>
+<rect x="388" y="98" width="54" height="116" rx="4" style="fill:var(--accent)"/>
+<g class="svt" font-size="22" text-anchor="middle" style="fill:var(--mint-ink)"><text x="115" y="164">€</text><text x="215" y="164">+</text><text x="315" y="164">A</text></g>
+<text x="415" y="164" class="svt" font-size="22" text-anchor="middle" style="fill:var(--on-accent)">♥</text>
+<rect x="30" y="216" width="460" height="14" rx="4" style="fill:var(--mint-ink)"/>
+<g text-anchor="middle" class="svt" font-size="14" style="fill:var(--ink)"><text x="115" y="254">Pensions</text><text x="215" y="254">Sanitat</text><text x="315" y="254">Educació</text><text x="415" y="254" style="fill:var(--accent)">Dependència</text></g>
+<g text-anchor="middle" font-size="11.5" style="fill:var(--ink-soft)"><text x="115" y="272">Seguretat Social</text><text x="215" y="272">Llei 1986</text><text x="315" y="272">LOGSE → LOMLOE</text><text x="415" y="272">Llei 39/2006</text></g>
+</svg><figcaption>El quart pilar, la dependència, és el més recent.</figcaption></figure>
+        <div class="tbl"><table>
+          <thead><tr><th>Pilar</th><th>Norma de referència</th><th>Què garanteix</th></tr></thead>
+          <tbody>
+            <tr><td>Pensions</td><td>Generalització de la Seguretat Social</td><td>Pensions universals: vellesa, llarga malaltia, atur…</td></tr>
+            <tr><td>Sanitat</td><td>Llei general de sanitat (1986)</td><td>Atenció sanitària universal, sigui quina sigui la situació econòmica</td></tr>
+            <tr><td>Educació</td><td>LOGSE (1990), avui LOMLOE</td><td>Ensenyament universal, gratuït i obligatori fins als 16 anys</td></tr>
+            <tr><td>Dependència</td><td>Llei 39/2006 (LAPAD)</td><td>Dret de qui no es pot valer per si mateix a ser atès per les administracions</td></tr>
+          </tbody>
+        </table></div>
+        <div class="box key"><span class="lbl">Idea clau</span><p>El <strong>SAAD</strong> és el <strong>«quart pilar»</strong> de l'estat del benestar. Neix amb la Llei 39/2006, que reconeix un nou <strong>dret subjectiu</strong>: el dret a ser atès en situació de dependència.</p></div>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">1.3</span>El marc normatiu, per nivells</h3>
+        <figure class="fig"><svg viewBox="0 0 560 210" role="img" aria-label="Nivells de la normativa, de més general a més concret">
+<g class="svt" font-size="14">
+<rect x="20" y="10" width="520" height="40" rx="10" style="fill:var(--sky)"/><text x="36" y="35" style="fill:var(--sky-ink)">Europeu i internacional</text><text x="524" y="35" text-anchor="end" font-size="12" style="fill:var(--sky-ink)">ONU 2006 · OMS · CIF</text>
+<rect x="55" y="58" width="450" height="40" rx="10" style="fill:var(--mint)"/><text x="71" y="83" style="fill:var(--mint-ink)">Estatal</text><text x="489" y="83" text-anchor="end" font-size="12" style="fill:var(--mint-ink)">Llei 39/2006 · RD 174/2011</text>
+<rect x="90" y="106" width="380" height="40" rx="10" style="fill:var(--peach)"/><text x="106" y="131" style="fill:var(--peach-ink)">Catalunya</text><text x="454" y="131" text-anchor="end" font-size="12" style="fill:var(--peach-ink)">Llei 12/2007 · Decret 142/2010</text>
+<rect x="125" y="154" width="310" height="40" rx="10" style="fill:var(--lilac)"/><text x="141" y="179" style="fill:var(--lilac-ink)">Local</text><text x="419" y="179" text-anchor="end" font-size="12" style="fill:var(--lilac-ink)">Ajuntaments · consells</text>
+</g></svg><figcaption>De més general (a dalt) a més concret (a baix).</figcaption></figure>
+        <h4>a) Europeu i internacional</h4>
+        <ul>
+          <li>La UE <strong>no té una llei única</strong> de dependència: dona orientacions, recomanacions i estratègies.</li>
+          <li><strong>Convenció de l'ONU sobre els drets de les persones amb discapacitat (2006)</strong> i estratègies de l'<strong>OMS</strong> (p. ex. Pla d'acció mundial de l'OMS sobre discapacitat).</li>
+          <li>Principis: igualtat d'oportunitats, no-discriminació, accessibilitat i vida autònoma.</li>
+          <li>La <strong>CIF</strong> (Classificació Internacional del Funcionament, de la Discapacitat i de la Salut) entén la discapacitat tenint en compte l'<strong>entorn</strong>.</li>
+        </ul>
+        <h4>b) Estatal</h4>
+        <ul>
+          <li><strong>Llei 39/2006, de 14 de desembre (LAPAD)</strong>: crea el SAAD, defineix conceptes, fixa els graus i el catàleg de prestacions, i la cooperació Estat–comunitats autònomes.</li>
+          <li><strong>Reial decret 174/2011</strong>: aprova el barem <strong>BVD</strong> i l'escala <strong>EVE</strong> (infants de 0 a 3 anys).</li>
+          <li><strong>Secretaria d'Estat de la Seguretat Social</strong>: assistència en cas de necessitat (malaltia, atur, jubilació).</li>
+          <li>El Ministeri competent ha publicat el <strong>Catàleg de referència de serveis socials</strong>.</li>
+        </ul>
+        <h4>c) Autonòmic: Catalunya (competència exclusiva de la Generalitat)</h4>
+        <div class="tbl"><table>
+          <thead><tr><th>Norma</th><th>Contingut</th></tr></thead>
+          <tbody>
+            <tr><td>Llei 12/2007, de serveis socials</td><td>Llei marc catalana. Configura la Xarxa de Serveis Socials d'Atenció Pública i el dret universal als serveis socials.</td></tr>
+            <tr><td>Decret 142/2010</td><td>Aprova la <strong>Cartera de Serveis Socials</strong> (prestacions garantides i no garantides).</td></tr>
+            <tr><td>Decret 115/2007</td><td>Òrgans de la Generalitat que apliquen la Llei 39/2006 a Catalunya.</td></tr>
+            <tr><td>Llei 13/2006</td><td>Prestacions socials de caràcter econòmic.</td></tr>
+            <tr><td>Decret 284/1996</td><td>Sistema català de serveis socials (tipologia de serveis i requisits).</td></tr>
+          </tbody>
+        </table></div>
+        <h4>d) Local</h4>
+        <ul>
+          <li>Ajuntaments, consells comarcals i diputacions: sobretot <strong>atenció primària</strong> (serveis socials bàsics), la porta d'entrada.</li>
+          <li>Municipis de <strong>més de 20.000 habitants</strong>: organitzen ells mateixos els serveis socials bàsics. Els petits, amb suport de diputacions i consells comarcals.</li>
+          <li>Gestionen informació i orientació, tramitació de sol·licituds i prestacions de proximitat.</li>
+        </ul>
+        <div class="box key"><span class="lbl">Idea clau</span><p>L'<strong>Estat</strong> (Llei 39/2006) fixa el marc comú i els drets bàsics. <strong>Catalunya</strong> (Llei 12/2007 i Cartera) concreta com s'organitzen i es presten els serveis. Són complementàries.</p></div>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">1.4</span>Protecció de dades</h3>
+        <p>Les dades de salut, família o economia són <strong>especialment sensibles</strong>: la confidencialitat és ètica i també <strong>obligació legal</strong>.</p>
+        <ul>
+          <li><strong>Reglament (UE) 2016/679 (RGPD)</strong>: reglament europeu.</li>
+          <li><strong>Llei orgànica 3/2018 (LOPDGDD)</strong>: l'adapta a l'Estat espanyol.</li>
+          <li>Les dades de salut són <strong>categoria especial</strong> (protecció màxima). Tots els professionals tenen <strong>secret professional</strong>.</li>
+        </ul>
+      </div>
+      <div class="pager"><button class="pbtn" type="button" data-go="inici">← Inici</button><button class="pbtn next" type="button" data-go="t2">Tema 2 →</button></div>
+    </div>
+  </section>
+
+  <!-- ===================== TEMA 2 ===================== -->
+  <section class="panel" role="tabpanel" aria-labelledby="tab-t2" hidden id="t2" data-tone="b">
+    <div class="sec-head"><span class="badge">2</span><h2>La dependència: concepte, models i graus</h2></div>
+    <div class="body">
+
+      <div class="sub">
+        <h3><span class="n">2.1</span>Què és la dependència</h3>
+        <p>Haver de <strong>recórrer a altres persones per cobrir les necessitats bàsiques</strong>. Es pot donar <strong>a qualsevol edat</strong> i està lligada a la pèrdua d'autonomia:</p>
+        <div class="duo">
+          <div class="card"><h4>Física</h4><p>Mobilitat, desplaçament…</p></div>
+          <div class="card"><h4>Intel·lectual</h4><p>Dèficit cognitiu, trastorns emocionals…</p></div>
+          <div class="card"><h4>Sensorial</h4><p>Dificultats visuals, auditives…</p></div>
+        </div>
+        <p>Pot ser <strong>temporal</strong> (una cama trencada) o <strong>permanent</strong>. El mòdul se centra en la permanent.</p>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">2.2</span>Deficiència, discapacitat i dependència</h3>
+        <div class="chain" aria-label="Cadena del model tradicional"><span>Deficiència</span><i>→</i><span>Discapacitat</span><i>→</i><span>Dependència</span></div>
+        <div class="tbl"><table>
+          <thead><tr><th>Concepte</th><th>Definició</th><th>Exemple</th></tr></thead>
+          <tbody>
+            <tr><td>Deficiència</td><td>Pèrdua o anormalitat d'una <strong>estructura o funció corporal</strong> per malaltia o accident</td><td>Perdre una cama</td></tr>
+            <tr><td>Discapacitat</td><td>Restricció de la <strong>capacitat de fer una activitat</strong>, com a conseqüència de la deficiència</td><td>Dificultat per desplaçar-se o llegir</td></tr>
+            <tr><td>Dependència</td><td>Per la discapacitat, la persona <strong>necessita l'ajuda d'altres</strong> per a activitats fonamentals de la vida diària</td><td>Necessitar ajuda per vestir-se</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">2.3</span>Del model tradicional al model actual</h3>
+        <div class="duo">
+          <div class="card">
+            <h4>Model tradicional (mèdic)</h4>
+            <ul>
+              <li>Dependència = últim esglaó de la cadena.</li>
+              <li>La deficiència és «el problema de la persona»; la solució és la medicina o la rehabilitació.</li>
+              <li>Porta a la <strong>institucionalització</strong>; persona com a <strong>subjecte passiu</strong>.</li>
+              <li>Criticat perquè <strong>ignora l'entorn</strong>.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Model actual (social)</h4>
+            <ul>
+              <li>Dependència = <strong>interacció persona–entorn</strong>.</li>
+              <li>Factors de l'entorn: <strong>barreres arquitectòniques</strong>, disponibilitat de <strong>productes de suport</strong>, <strong>organització d'espais i serveis</strong>.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="box key"><span class="lbl">Conseqüència pràctica</span><p>Si l'entorn és part del problema, també és part de la solució: eliminar barreres i donar productes de suport pot <strong>reduir el grau de dependència real</strong>.</p></div>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">2.4</span>El SAAD</h3>
+        <p><strong>Sistema per a l'Autonomia i Atenció a la Dependència</strong>: conjunt de serveis i prestacions econòmiques per promoure l'autonomia i atendre i protegir les persones en situació de dependència. Es presta amb serveis <strong>públics i privats concertats acreditats</strong>.</p>
+        <ul>
+          <li>El crea la Llei 39/2006.</li>
+          <li>Garanteix una vida digna en igualtat d'oportunitats.</li>
+          <li>Cada comunitat autònoma fixa els òrgans que fan la valoració.</li>
+        </ul>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">2.5</span>Els graus de dependència (barem BVD)</h3>
+        <figure class="fig"><svg viewBox="0 0 600 120" role="img" aria-label="Escala de punts BVD de 0 a 100 amb els tres graus">
+<text x="20" y="20" class="svt" font-size="13" style="fill:var(--ink-soft)">PUNTS BVD</text>
+<rect x="20" y="32" width="140" height="40" rx="8" style="fill:var(--line)"/>
+<rect x="160" y="32" width="140" height="40" style="fill:var(--mint)"/>
+<rect x="300" y="32" width="140" height="40" style="fill:var(--peach)"/>
+<rect x="440" y="32" width="140" height="40" rx="8" style="fill:var(--lilac)"/>
+<g class="svt" font-size="14" text-anchor="middle"><text x="90" y="57" style="fill:var(--ink-soft)">Sense grau</text><text x="230" y="57" style="fill:var(--mint-ink)">Grau I</text><text x="370" y="57" style="fill:var(--peach-ink)">Grau II</text><text x="510" y="57" style="fill:var(--lilac-ink)">Grau III</text></g>
+<g style="stroke:var(--ink-soft)" stroke-width="1.5"><line x1="20" y1="76" x2="20" y2="84"/><line x1="160" y1="76" x2="160" y2="84"/><line x1="300" y1="76" x2="300" y2="84"/><line x1="440" y1="76" x2="440" y2="84"/><line x1="580" y1="76" x2="580" y2="84"/></g>
+<g font-size="12.5" text-anchor="middle" style="fill:var(--ink)"><text x="20" y="100">0</text><text x="160" y="100">25</text><text x="300" y="100">50</text><text x="440" y="100">75</text><text x="580" y="100" text-anchor="end">100</text></g>
+</svg><figcaption>Cada grau ocupa una franja de 25 punts. 75 o més és gran dependència.</figcaption></figure>
+        <div class="grades">
+          <div class="grade g1"><span class="g">Grau I · Moderada</span><span class="pts">25 – 49 punts</span><p>Ajuda per a diverses ABVD <strong>almenys un cop al dia</strong>, o suport intermitent o limitat.</p></div>
+          <div class="grade g2"><span class="g">Grau II · Severa</span><span class="pts">50 – 74 punts</span><p>Ajuda <strong>2 o 3 vegades al dia</strong>, sense cuidador permanent; o suport extens.</p></div>
+          <div class="grade g3"><span class="g">Grau III · Gran dependència</span><span class="pts">75 punts o més</span><p>Ajuda <strong>diverses vegades al dia</strong> i suport <strong>indispensable i continu</strong> d'una altra persona; o suport generalitzat.</p></div>
+        </div>
+        <div class="box warn"><span class="lbl">Compte!</span><p>Per sota de 25 punts no hi ha grau reconegut. Aprèn-te l'ordre: <strong>moderada → severa → gran dependència</strong>.</p></div>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">2.6</span>La valoració a Catalunya</h3>
+        <ul>
+          <li>Òrgan responsable: <strong>SEVAD</strong> (Serveis de Valoració de la Dependència).</li>
+          <li>Barem: <strong>BVD</strong> (i <strong>EVE</strong> per a infants de 0 a 3 anys), del <strong>RD 174/2011</strong>.</li>
+          <li>Es valora no només la salut física, sinó també l'<strong>entorn</strong>, els <strong>productes de suport</strong> i l'<strong>estat cognitiu</strong>: capacitat per fer les ABVD, necessitat de suport i supervisió, informes mèdics, informes de l'entorn sociocultural, ajudes tècniques, ortesis i pròtesis.</li>
+          <li>Activitats que explora: menjar i beure, micció i defecació, rentar-se, altres cures corporals, vestir-se, manteniment de la salut, canviar i mantenir la posició, desplaçar-se dins i fora de la llar, tasques domèstiques i, si hi ha afectació mental, <strong>prendre decisions</strong>.</li>
+          <li>Equips <strong>multidisciplinaris</strong> (infermeria, teràpia ocupacional, fisioteràpia, treball social, psicologia, medicina) que apliquen el barem <strong>al domicili habitual</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">2.7</span>El procés de reconeixement, pas a pas</h3>
+        <figure class="fig"><svg viewBox="0 0 600 120" role="img" aria-label="Quatre fases del reconeixement de la dependència">
+<g class="svt" text-anchor="middle">
+<rect x="10" y="20" width="125" height="64" rx="12" style="fill:var(--sky)"/><text x="72" y="48" font-size="14" style="fill:var(--sky-ink)">1 Sol·licitud</text><text x="72" y="68" font-size="11" style="fill:var(--sky-ink)">Serveis socials · SIDEP</text>
+<rect x="160" y="20" width="125" height="64" rx="12" style="fill:var(--mint)"/><text x="222" y="48" font-size="14" style="fill:var(--mint-ink)">2 Valoració</text><text x="222" y="68" font-size="11" style="fill:var(--mint-ink)">SEVAD · BVD/EVE</text>
+<rect x="310" y="20" width="125" height="64" rx="12" style="fill:var(--peach)"/><text x="372" y="48" font-size="14" style="fill:var(--peach-ink)">3 Resolució</text><text x="372" y="68" font-size="11" style="fill:var(--peach-ink)">Grau reconegut</text>
+<rect x="460" y="20" width="125" height="64" rx="12" style="fill:var(--lilac)"/><text x="522" y="48" font-size="14" style="fill:var(--lilac-ink)">4 PIA</text><text x="522" y="68" font-size="11" style="fill:var(--lilac-ink)">Serveis i prestacions</text>
+</g>
+<g style="fill:var(--accent)"><path d="M138 52 l14 -7 v14z"/><path d="M288 52 l14 -7 v14z"/><path d="M438 52 l14 -7 v14z"/></g>
+<text x="300" y="110" text-anchor="middle" font-size="12" style="fill:var(--ink-soft)">De la sol·licitud al pla d'atenció</text>
+</svg></figure>
+        <ol class="steps">
+          <li><div><strong>Sol·licitud.</strong> La persona (o representant legal) la presenta a un registre de benestar social o als serveis socials d'atenció primària. Les dades entren al <strong>SIDEP</strong> i van als SEVAD.</div></li>
+          <li><div><strong>Valoració.</strong> Un professional dels SEVAD visita el domicili o centre i aplica el BVD/EVE. La <strong>Comissió de Valoració</strong> proposa el grau.</div></li>
+          <li><div><strong>Resolució.</strong> Reconeix el grau i els serveis o prestacions que corresponen.</div></li>
+          <li><div><strong>PIA.</strong> Els serveis socials, amb la persona i la família, elaboren el Programa individual d'atenció.</div></li>
+        </ol>
+        <div class="duo">
+          <div class="card"><h4>Finançament</h4><p>Estat + Generalitat + persona usuària (<strong>copagament</strong> segons capacitat econòmica).</p></div>
+          <div class="card"><h4>Revisió del grau</h4><p>Per millora, empitjorament, o error de diagnòstic o d'aplicació del barem.</p></div>
+          <div class="card"><h4>Modificació o extinció</h4><p>Canvi de situació personal, canvi de requisits o incompliment d'obligacions.</p></div>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">2.8</span>PIA i PAI: no els confonguis</h3>
+        <div class="tbl"><table>
+          <thead><tr><th></th><th>PIA · Programa individual d'atenció</th><th>PAI · Pla d'atenció individualitzada</th></tr></thead>
+          <tbody>
+            <tr><td>Qui l'elabora</td><td>Els <strong>serveis socials</strong> (administració)</td><td>L'<strong>equip interdisciplinari</strong> del centre</td></tr>
+            <tr><td>On se situa</td><td>Dins del procediment de reconeixement</td><td>Dins del funcionament d'una residència o centre</td></tr>
+            <tr><td>Què recull</td><td>Serveis i prestacions adequats al grau</td><td>Cures i objectius d'atenció detallats dins del centre</td></tr>
+          </tbody>
+        </table></div>
+        <div class="box warn"><span class="lbl">Compte!</span><p>Truc: el <strong>PIA</strong> ve de l'<strong>Administració</strong>; el <strong>PAI</strong> es fa a l'<strong>Interior</strong> del centre.</p></div>
+      </div>
+      <div class="pager"><button class="pbtn" type="button" data-go="t1">← Tema 1</button><button class="pbtn next" type="button" data-go="t3">Tema 3 →</button></div>
+    </div>
+  </section>
+
+  <!-- ===================== TEMA 3 ===================== -->
+  <section class="panel" role="tabpanel" aria-labelledby="tab-t3" hidden id="t3" data-tone="c">
+    <div class="sec-head"><span class="badge">3</span><h2>Models i serveis d'atenció. La xarxa de serveis socials</h2></div>
+    <div class="body">
+
+      <div class="sub">
+        <h3><span class="n">3.1</span>La Xarxa de Serveis Socials d'Atenció Pública</h3>
+        <p>Conjunt de recursos, prestacions, programes i equipaments per a l'atenció social. A Catalunya la formen serveis de <strong>titularitat pública i privada</strong> acreditats per la Generalitat. Té dos nivells:</p>
+        <figure class="fig"><svg viewBox="0 0 600 240" role="img" aria-label="La persona entra pels serveis socials bàsics i, si cal, es deriva als especialitzats">
+<g style="stroke:var(--peach-ink)" stroke-width="2" fill="none" opacity=".6"><line x1="300" y1="48" x2="300" y2="70"/><line x1="300" y1="128" x2="85" y2="178"/><line x1="300" y1="128" x2="230" y2="178"/><line x1="300" y1="128" x2="370" y2="178"/><line x1="300" y1="128" x2="515" y2="178"/></g>
+<rect x="240" y="10" width="120" height="38" rx="19" style="fill:var(--surface);stroke:var(--line)"/><text x="300" y="34" text-anchor="middle" class="svt" font-size="14" style="fill:var(--ink)">Persona</text>
+<rect x="160" y="70" width="280" height="58" rx="14" style="fill:var(--peach-ink)"/>
+<text x="300" y="95" text-anchor="middle" class="svt" font-size="15" style="fill:var(--surface)">Serveis socials bàsics</text>
+<text x="300" y="115" text-anchor="middle" font-size="12" style="fill:var(--surface)">Porta d'entrada · per a tothom</text>
+<g class="svt" font-size="12.5" text-anchor="middle">
+<rect x="20" y="178" width="130" height="44" rx="10" style="fill:var(--peach)"/><text x="85" y="205" style="fill:var(--peach-ink)">Residències</text>
+<rect x="165" y="178" width="130" height="44" rx="10" style="fill:var(--peach)"/><text x="230" y="205" style="fill:var(--peach-ink)">Centres de dia</text>
+<rect x="305" y="178" width="130" height="44" rx="10" style="fill:var(--peach)"/><text x="370" y="205" style="fill:var(--peach-ink)">Habitatges tutelats</text>
+<rect x="450" y="178" width="130" height="44" rx="10" style="fill:var(--peach)"/><text x="515" y="205" style="fill:var(--peach-ink)">Tallers ocupacionals</text>
+</g>
+<text x="20" y="160" font-size="12" class="svt" style="fill:var(--ink-soft)">SERVEIS ESPECIALITZATS</text>
+</svg><figcaption>Es comença sempre pels serveis bàsics; d'allà es deriva si cal.</figcaption></figure>
+        <div class="tbl"><table>
+          <thead><tr><th>Nivell</th><th>Altres noms</th><th>A qui s'adreça</th><th>Exemples</th></tr></thead>
+          <tbody>
+            <tr><td>Serveis socials generals</td><td>Comunitaris, de base, d'atenció primària</td><td>A <strong>tota la ciutadania</strong></td><td>Informació i orientació, ajuda a domicili, prevenció, inserció social</td></tr>
+            <tr><td>Serveis socials especialitzats</td><td>—</td><td>Col·lectius concrets (infància, discapacitat, dones, gent gran…)</td><td>Residències, centres de dia, centres d'acolliment, tallers ocupacionals, habitatges tutelats</td></tr>
+          </tbody>
+        </table></div>
+        <div class="box key"><span class="lbl">Idea clau</span><p>Els serveis socials bàsics són la <strong>porta d'entrada</strong>: s'hi inicien els tràmits i des d'aquí es deriva als especialitzats.</p></div>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">3.2</span>Qui fa què: les tres administracions</h3>
+        <div class="duo">
+          <div class="card"><h4>Estat</h4><p>Ministeri competent (màxima instància) i Catàleg de referència. En depèn la Secretaria d'Estat de la Seguretat Social.</p></div>
+          <div class="card"><h4>Comunitat autònoma</h4><p>Té les competències transferides: fa la seva llei (Llei 12/2007), decideix serveis, regula i coordina centres, vetlla per la normativa i elabora la cartera.</p></div>
+          <div class="card"><h4>Entitats locals</h4><p>Ajuntaments, consells comarcals i diputacions: atenció primària. Municipis de +20.000 habitants, per si mateixos.</p></div>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">3.3</span>Els plans d'intervenció</h3>
+        <p>Instruments de programació <strong>a llarg termini</strong> que afecten <strong>grans col·lectius</strong> (p. ex. l'atenció a la discapacitat). No són plans d'una persona concreta. Abast: <strong>internacional</strong> (OMS), <strong>estatal</strong> (estratègies sobre discapacitat), <strong>autonòmic, comarcal o local</strong>.</p>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">3.4</span>Les prestacions del sistema</h3>
+        <p>Les recull la <strong>Cartera de Serveis Socials</strong>. Poden ser <strong>garantides</strong> (exigibles com a dret) o <strong>no garantides</strong> (depenen del pressupost).</p>
+        <div class="tbl"><table>
+          <thead><tr><th>Tipus</th><th>En què consisteix</th></tr></thead>
+          <tbody>
+            <tr><td>A) De serveis</td><td>L'Administració presta el servei directament: atenció domiciliària, recursos intermedis, residencial (Tema 4).</td></tr>
+            <tr><td>B) Econòmiques</td><td>Si no pot donar el servei, dona diners amb una finalitat concreta.</td></tr>
+            <tr><td>C) Tecnològiques</td><td>Ajudes per a productes de suport o adaptacions per a l'autonomia.</td></tr>
+          </tbody>
+        </table></div>
+        <h4>Les tres prestacions econòmiques</h4>
+        <div class="duo">
+          <div class="card"><h4>Vinculada al servei</h4><p>Ajuda a pagar un <strong>servei privat</strong> quan no hi ha plaça pública o concertada.</p></div>
+          <div class="card"><h4>Cures en l'entorn familiar</h4><p>Un <strong>familiar</strong> (cuidador no professional) atén la persona i rep una compensació segons el grau.</p></div>
+          <div class="card"><h4>Assistència personal</h4><p>Per contractar un <strong>assistent personal</strong> que faciliti una vida més autònoma.</p></div>
+        </div>
+        <h4>Prestacions tecnològiques</h4>
+        <ul>
+          <li>Adquisició de <strong>productes de suport</strong> per a la vida ordinària.</li>
+          <li><strong>Accessibilitat i adaptacions de la llar</strong> per moure's millor per l'habitatge.</li>
+        </ul>
+      </div>
+      <div class="pager"><button class="pbtn" type="button" data-go="t2">← Tema 2</button><button class="pbtn next" type="button" data-go="t4">Tema 4 →</button></div>
+    </div>
+  </section>
+
+  <!-- ===================== TEMA 4 ===================== -->
+  <section class="panel" role="tabpanel" aria-labelledby="tab-t4" hidden id="t4" data-tone="d">
+    <div class="sec-head"><span class="badge">4</span><h2>Equipaments per a l'atenció segons el grau de dependència</h2></div>
+    <div class="body">
+
+      <div class="sub">
+        <p>La tria del recurs depèn del <strong>grau</strong>, de les <strong>necessitats</strong> i de la <strong>voluntat</strong> de la persona. Tres famílies, de menys a més intensitat:</p>
+        <figure class="fig"><svg viewBox="0 0 600 210" role="img" aria-label="Tres famílies de serveis ordenades per intensitat d'atenció">
+<defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" style="stop-color:var(--mint)"/><stop offset=".5" style="stop-color:var(--peach)"/><stop offset="1" style="stop-color:var(--lilac)"/></linearGradient></defs>
+<g style="fill:var(--mint-ink)"><path d="M62 72 L100 40 L138 72 Z"/><rect x="70" y="72" width="60" height="50"/></g><rect x="92" y="96" width="16" height="26" style="fill:var(--surface)"/>
+<circle cx="300" cy="42" r="13" style="fill:var(--peach-ink)" opacity=".7"/><path d="M322 34 a12 12 0 1 0 10 18 a9 9 0 1 1 -10 -18z" style="fill:var(--peach-ink)"/><rect x="265" y="64" width="70" height="58" rx="3" style="fill:var(--peach-ink)"/><rect x="292" y="96" width="16" height="26" style="fill:var(--surface)"/>
+<rect x="465" y="22" width="70" height="100" rx="3" style="fill:var(--lilac-ink)"/><g style="fill:var(--surface)"><rect x="475" y="32" width="14" height="12"/><rect x="511" y="32" width="14" height="12"/><rect x="475" y="54" width="14" height="12"/><rect x="511" y="54" width="14" height="12"/><rect x="475" y="76" width="14" height="12"/><rect x="511" y="76" width="14" height="12"/><rect x="492" y="98" width="16" height="24"/></g>
+<g class="svt" text-anchor="middle" font-size="15" style="fill:var(--ink)"><text x="100" y="146">Domicili</text><text x="300" y="146">Recursos intermedis</text><text x="500" y="146">Residència</text></g>
+<g text-anchor="middle" font-size="11.5" style="fill:var(--ink-soft)"><text x="100" y="163">SAD · teleassistència</text><text x="300" y="163">Centre de dia/nit · respir</text><text x="500" y="163">Atenció les 24 hores</text></g>
+<rect x="40" y="180" width="510" height="12" rx="6" fill="url(#lg)"/><path d="M548 174 l16 12 l-16 12z" style="fill:var(--lilac-ink)"/>
+<text x="40" y="207" font-size="11" class="svt" style="fill:var(--ink-soft)">MENYS INTENSITAT</text><text x="550" y="207" font-size="11" text-anchor="end" class="svt" style="fill:var(--ink-soft)">MÉS INTENSITAT</text>
+</svg></figure>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">4.1</span>Atenció domiciliària</h3>
+        <p>Finalitat: que la persona <strong>es quedi a casa el màxim temps possible</strong>, retardant o evitant la institucionalització.</p>
+        <div class="duo">
+          <div class="card"><h4>SAD · Servei d'ajuda a domicili</h4><p>Cura personal i suport a les tasques domèstiques (neteja, rentat, cuina). El presten entitats o empreses acreditades.</p></div>
+          <div class="card"><h4>Teleassistència</h4><p>Resposta immediata davant emergències o inseguretat, i suport en solitud. Pot ser <strong>independent o complementària</strong> del SAD.</p></div>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">4.2</span>Recursos intermedis (serveis de respir familiar)</h3>
+        <p>Entre el domicili i la residència. Alleugereixen la càrrega de la família unes hores al dia o una temporada.</p>
+        <div class="duo">
+          <div class="card"><h4>Centres de dia</h4><p>Atenció <strong>integral diürna</strong> (bàsica i terapèutica), segons col·lectiu. Altres serveis diürns només fan activitats ocupacionals o de lleure i <strong>no</strong> són terapèutics.</p></div>
+          <div class="card"><h4>Centres de nit</h4><p>Servei nocturn, sobretot per a persones amb <strong>demència o malaltia mental</strong> amb agitació, alteració del son o trastorns de conducta a la nit.</p></div>
+        </div>
+        <h4>Suport temporal a les famílies (respir)</h4>
+        <div class="tbl"><table>
+          <thead><tr><th>Estada</th><th>Durada</th><th>Per exemple</th></tr></thead>
+          <tbody>
+            <tr><td>Curta</td><td class="num">1–3 dies</td><td>Caps de setmana</td></tr>
+            <tr><td>Mitjana</td><td class="num">3–5 dies</td><td>Ponts o festes</td></tr>
+            <tr><td>Llarga</td><td class="num">Més de 5 dies</td><td>Vacances o una emergència (p. ex. operació del cuidador)</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">4.3</span>Serveis residencials</h3>
+        <p>Centres <strong>substitutoris de la llar</strong> amb atenció integral les 24 hores, quan les necessitats no es poden cobrir a casa o la persona ho prefereix.</p>
+        <div class="tbl"><table>
+          <thead><tr><th>Grup de serveis</th><th>Què inclou</th></tr></thead>
+          <tbody>
+            <tr><td>Bàsics</td><td>Allotjament, manutenció, assistència en les AVD</td></tr>
+            <tr><td>Terapèutics</td><td>Atenció sociosanitària i psicològica, cures, rehabilitació, teràpies cognitives, animació sociocultural</td></tr>
+            <tr><td>Intervenció amb la família</td><td>Informació, grups d'autoajuda</td></tr>
+            <tr><td>Complementaris</td><td>Podologia, perruqueria, cafeteria</td></tr>
+          </tbody>
+        </table></div>
+        <h4>Tipus segons el col·lectiu</h4>
+        <ul>
+          <li><strong>Gent gran</strong>: residents amb autonomia (menys recursos) i residents molt dependents (més recursos).</li>
+          <li><strong>Persones amb discapacitat</strong> (menors de 65 anys): greument afectades, amb trastorns greus de conducta, o adultes amb certa autonomia però problemes d'integració familiar.</li>
+          <li><strong>Malaltia mental</strong> (18–65 anys, autonomia molt baixa): tendència a centres petits, les <strong>miniresidències o cases llar</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">4.4</span>Allotjament alternatiu</h3>
+        <p>Pisos o cases convencionals adaptats per viure de manera <strong>independent en un entorn normalitzat</strong>: pisos protegits, habitatges tutelats, allotjaments supervisats, comunitats terapèutiques…</p>
+        <p>Es diferencien per <strong>tres variables</strong>: el <strong>col·lectiu</strong>, el <strong>nivell de suport o supervisió</strong> (més dependència, més suport) i el <strong>nombre de persones</strong> que hi conviuen.</p>
+      </div>
+
+      <div class="sub">
+        <h3><span class="n">4.5</span>Organització d'una residència</h3>
+        <div class="tbl"><table>
+          <thead><tr><th>Àrea</th><th>Funció</th></tr></thead>
+          <tbody>
+            <tr><td>Direcció i gestió</td><td>Direcció, administració, RRHH, coordinació. Defineix el projecte i la planificació.</td></tr>
+            <tr><td>Atenció directa (sociosanitària)</td><td>Medicina, infermeria, gerocultura, fisioteràpia, teràpia ocupacional, treball social, psicologia, animació.</td></tr>
+            <tr><td>Serveis generals</td><td>Cuina, neteja, bugaderia, manteniment, recepció, transport.</td></tr>
+            <tr><td>Serveis complementaris</td><td>Perruqueria, podologia, cafeteria (sovint externs).</td></tr>
+          </tbody>
+        </table></div>
+        <h4>Requisits organitzatius habituals</h4>
+        <ul>
+          <li>Reunions de personal <strong>mínim mensuals</strong> (millor setmanals).</li>
+          <li>Manual de bona pràctica per al personal d'atenció directa.</li>
+          <li>Atenció individualitzada amb un <strong>professional de referència</strong> per resident.</li>
+          <li>Protocols d'actuació.</li>
+          <li>Programa anual d'activitats (objectius, calendari, mètodes, avaluació).</li>
+          <li>Animació sociocultural i participació en la comunitat.</li>
+          <li>Formació permanent del personal.</li>
+          <li>Normativa de seguretat, higiene i prevenció de riscos laborals.</li>
+        </ul>
+        <div class="box key"><span class="lbl">Idea clau</span><p>La tendència actual: la residència com a <strong>espai obert i integrador</strong>, amb activitats on participa la comunitat.</p></div>
+      </div>
+      <div class="pager"><button class="pbtn" type="button" data-go="t3">← Tema 3</button><button class="pbtn next" type="button" data-go="extra">Sigles i check →</button></div>
+    </div>
+  </section>
+
+  <!-- ===================== EXTRA ===================== -->
+  <section class="panel" role="tabpanel" aria-labelledby="tab-extra" hidden id="extra" data-tone="e">
+    <div class="sec-head"><span class="badge">✓</span><h2>Sigles clau i llista de comprovació</h2></div>
+    <div class="body">
+      <div class="sub">
+        <h3>Sigles que has de saber</h3>
+        <div class="gloss">
+          <div><b>LAPAD</b>Llei 39/2006 de la dependència</div>
+          <div><b>SAAD</b>Sistema per a l'Autonomia i Atenció a la Dependència</div>
+          <div><b>BVD</b>Barem de valoració de la dependència</div>
+          <div><b>EVE</b>Escala de valoració específica (0–3 anys)</div>
+          <div><b>SEVAD</b>Serveis de Valoració de la Dependència</div>
+          <div><b>SIDEP</b>Sistema d'Informació de la Dependència a Catalunya</div>
+          <div><b>PIA</b>Programa individual d'atenció (serveis socials)</div>
+          <div><b>PAI</b>Pla d'atenció individualitzada (equip del centre)</div>
+          <div><b>ABVD</b>Activitats bàsiques de la vida diària</div>
+          <div><b>SAD</b>Servei d'ajuda a domicili</div>
+          <div><b>CIF</b>Classificació Internacional del Funcionament (OMS)</div>
+          <div><b>RGPD</b>Reglament (UE) 2016/679 de protecció de dades</div>
+          <div><b>LOPDGDD</b>Llei orgànica 3/2018 de protecció de dades</div>
+          <div><b>OMS</b>Organització Mundial de la Salut</div>
+        </div>
+      </div>
+
+      <div class="sub">
+        <h3>Abans de la prova, sé…</h3>
+        <p class="progress" id="prog">0 de 12 marcats</p>
+        <ul class="check" id="checks">
+          <li><label><input type="checkbox" id="c1"><span>Definir l'estat del benestar i dir els seus 4 pilars amb la seva norma.</span></label></li>
+          <li><label><input type="checkbox" id="c2"><span>Explicar per què el SAAD és el «quart pilar».</span></label></li>
+          <li><label><input type="checkbox" id="c3"><span>Situar cada norma en el seu nivell (europeu, estatal, català, local).</span></label></li>
+          <li><label><input type="checkbox" id="c4"><span>Dir què regulen la Llei 39/2006, la Llei 12/2007, el Decret 142/2010 i el RD 174/2011.</span></label></li>
+          <li><label><input type="checkbox" id="c5"><span>Distingir deficiència, discapacitat i dependència amb un exemple.</span></label></li>
+          <li><label><input type="checkbox" id="c6"><span>Comparar el model tradicional i el model actual.</span></label></li>
+          <li><label><input type="checkbox" id="c7"><span>Dir els 3 graus, el seu nom i la puntuació BVD.</span></label></li>
+          <li><label><input type="checkbox" id="c8"><span>Explicar els 4 passos del reconeixement i qui hi intervé.</span></label></li>
+          <li><label><input type="checkbox" id="c9"><span>Diferenciar PIA i PAI.</span></label></li>
+          <li><label><input type="checkbox" id="c10"><span>Distingir serveis socials generals i especialitzats.</span></label></li>
+          <li><label><input type="checkbox" id="c11"><span>Explicar els 3 tipus de prestacions i les 3 prestacions econòmiques.</span></label></li>
+          <li><label><input type="checkbox" id="c12"><span>Classificar un recurs: domiciliari, intermedi, residencial o allotjament alternatiu.</span></label></li>
+        </ul>
+      </div>
+      <div class="pager"><button class="pbtn" type="button" data-go="t4">← Tema 4</button></div>
+    </div>
+  </section>
+
+  <p class="foot">Resum elaborat a partir del dossier teòric RA1 del mòdul 0210. Molta sort dimarts!</p>
+</div>
+
+<script>
+(function(){
+  // Compte enrere fins a la prova
+  try{
+    var exam = new Date(2026, 9, 13);
+    var now = new Date(); now.setHours(0,0,0,0);
+    var d = Math.round((exam - now) / 86400000);
+    var el = document.getElementById('count');
+    if (d > 1) el.textContent = 'Queden ' + d + ' dies';
+    else if (d === 1) el.textContent = 'És demà!';
+    else if (d === 0) el.textContent = 'És avui. Ànims!';
+  }catch(e){}
+
+
+  // Pestanyes
+  var ids=['inici','t1','t2','t3','t4','extra'];
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  function show(id, scroll){
+    if(ids.indexOf(id)<0) id='inici';
+    ids.forEach(function(x){ document.getElementById(x).hidden = (x!==id); });
+    tabs.forEach(function(t){ var on=t.getAttribute('data-go')===id; t.setAttribute('aria-selected', on?'true':'false'); t.tabIndex = on?0:-1; if(on && t.scrollIntoView){ try{t.scrollIntoView({block:'nearest',inline:'center'});}catch(e){} } });
+    if(scroll){ var nav=document.querySelector('.tabs'); var y=nav.getBoundingClientRect().top+window.pageYOffset-8; if(window.pageYOffset>y) window.scrollTo(0,y); }
+  }
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('[data-go]'); if(!el) return;
+    e.preventDefault(); show(el.getAttribute('data-go'), true);
+  });
+  document.querySelector('.tabs').addEventListener('keydown',function(e){
+    var i=tabs.findIndex(function(t){return t.getAttribute('aria-selected')==='true';});
+    if(e.key==='ArrowRight'||e.key==='ArrowLeft'){ e.preventDefault(); var n=(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length; show(tabs[n].getAttribute('data-go'),false); tabs[n].focus(); }
+  });
+  show((location.hash||'').replace('#',''), false);
+
+  // Llista de comprovació (es recorda en aquest navegador si es pot)
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('#checks input'));
+  var prog = document.getElementById('prog');
+  var KEY = 'repas-ra1-checks';
+  function update(){
+    var n = boxes.filter(function(b){return b.checked;}).length;
+    prog.textContent = n === boxes.length ? 'Tot a punt! ' + n + ' de ' + boxes.length : n + ' de ' + boxes.length + ' marcats';
+    try{ localStorage.setItem(KEY, JSON.stringify(boxes.map(function(b){return b.checked;}))); }catch(e){}
+  }
+  try{
+    var saved = JSON.parse(localStorage.getItem(KEY) || '[]');
+    boxes.forEach(function(b,i){ if (saved[i]) b.checked = true; });
+  }catch(e){}
+  boxes.forEach(function(b){ b.addEventListener('change', update); });
+  update();
+})();
+</script>
+
+</body>
+</html>
